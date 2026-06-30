@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Omar Albedwehy · Finance & Strategy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+/* ── Roman Governance Palette ── */
+:root {
+  --cream:    #F7F4EF;
+  --cream2:   #EFEAE1;
+  --white:    #FFFFFF;
+  --gold:     #8B6914;
+  --gold-lt:  #B8960C;
+  --gold-bg:  #F5EED8;
+  --ink:      #1A1A1A;
+  --charcoal: #2C2C2C;
+  --muted:    #6B6B6B;
+  --rule:     rgba(139,105,20,0.22);
+  --border:   rgba(139,105,20,0.15);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.2rem 6vw;
+  background: rgba(247,244,239,0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem; font-weight: 500; letter-spacing: .05em;
+  color: var(--charcoal);
+}
+.nav-brand span { color: var(--gold); }
+.nav-links { display: flex; gap: 2.2rem; list-style: none; }
+.nav-links a {
+  font-size: .68rem; font-weight: 400; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--muted); text-decoration: none;
+  transition: color .25s;
+}
+.nav-links a:hover { color: var(--gold); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 68px;
+}
+
+/* Left */
+.hero-text {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 6rem 5vw 6rem 8vw;
+  position: relative;
+  border-right: 1px solid var(--border);
+}
+.hero-eyebrow {
+  font-size: .65rem; font-weight: 500; letter-spacing: .25em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 1.8rem;
+  display: flex; align-items: center; gap: .8rem;
+}
+.hero-eyebrow::before {
+  content: ''; display: block; width: 32px; height: 1px; background: var(--gold);
+}
+.hero-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 5.5vw, 5.8rem);
+  font-weight: 300; line-height: 1.0;
+  color: var(--charcoal); margin-bottom: .15em;
+}
+.hero-name strong {
+  display: block; font-weight: 600; color: var(--gold);
+}
+.hero-credentials {
+  display: flex; gap: .5rem; flex-wrap: wrap;
+  margin-top: 1rem; margin-bottom: 2rem;
+}
+.badge {
+  font-size: .58rem; font-weight: 500; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--gold);
+  border: 1px solid var(--gold); padding: .28rem .75rem;
+  background: transparent;
+}
+.lbs-badge {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-size: .58rem; font-weight: 500; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--gold);
+  border: 1px solid var(--gold); padding: .28rem .75rem;
+}
+.hero-tagline {
+  font-size: .94rem; font-weight: 300; color: var(--muted);
+  line-height: 1.9; max-width: 440px; margin-bottom: 2.8rem;
+  font-style: italic;
+}
+.hero-tagline em { font-style: normal; color: var(--charcoal); font-weight: 400; }
+.hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .85rem 2rem; background: var(--gold); color: var(--white);
+  font-size: .68rem; font-weight: 500; letter-spacing: .14em;
+  text-transform: uppercase; text-decoration: none;
+  transition: background .2s, transform .2s;
+}
+.btn-primary:hover { background: var(--gold-lt); transform: translateY(-1px); }
+.btn-outline {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .85rem 2rem; border: 1px solid var(--gold); color: var(--gold);
+  font-size: .68rem; font-weight: 400; letter-spacing: .14em;
+  text-transform: uppercase; text-decoration: none;
+  transition: background .2s, color .2s;
+}
+.btn-outline:hover { background: var(--gold-bg); }
+
+/* Right — Chart Panel */
+.hero-chart {
+  background: var(--white);
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  padding: 4rem 3vw; gap: 2rem;
+}
+.chart-block { width: 100%; }
+.chart-title {
+  font-size: .6rem; font-weight: 500; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: .8rem; text-align: center;
+}
+.stats-row {
+  display: flex; justify-content: space-around;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.stat { text-align: center; }
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.6rem; font-weight: 300; color: var(--gold); line-height: 1;
+}
+.stat-label { font-size: .6rem; color: var(--muted); letter-spacing: .08em; margin-top: .2rem; }
+
+/* ── DIVIDER ── */
+hr.div {
+  border: none; height: 1px;
+  background: linear-gradient(to right, transparent, var(--rule), transparent);
+}
+.gold-rule {
+  width: 48px; height: 2px; background: var(--gold); margin: 0 auto 2rem;
+}
+
+/* ── SECTION BASE ── */
+.sec { padding: 6rem 8vw; max-width: 1400px; margin: 0 auto; }
+.sec-bg-white { background: var(--white); padding: 6rem 0; }
+.sec-bg-cream2 { background: var(--cream2); padding: 6rem 0; }
+.sec-inner { max-width: 1400px; margin: 0 auto; padding: 0 8vw; }
+
+.sec-label {
+  font-size: .6rem; font-weight: 500; letter-spacing: .25em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: .8rem;
+}
+.sec-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 3.2vw, 3rem); font-weight: 300;
+  color: var(--charcoal); line-height: 1.2; margin-bottom: .5rem;
+}
+.sec-heading em { font-style: italic; color: var(--gold); }
+
+/* ── ABOUT ── */
+.about-grid { display: grid; grid-template-columns: 1fr 1.7fr; gap: 6rem; align-items: start; }
+.about-sticky { position: sticky; top: 7rem; }
+.about-body { font-size: .93rem; font-weight: 300; color: var(--muted); line-height: 1.9; }
+.about-body p + p { margin-top: 1.1rem; }
+.about-body strong { color: var(--charcoal); font-weight: 500; }
+
+.pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin-top: 2.5rem; }
+.pillar { background: var(--cream); padding: 1.4rem; transition: background .2s; }
+.pillar:hover { background: var(--gold-bg); }
+.pillar-name {
+  font-size: .63rem; font-weight: 500; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: .4rem;
+}
+.pillar-desc { font-size: .8rem; color: var(--muted); line-height: 1.7; }
+
+/* ── EXPERIENCE ── */
+.exp-grid { display: grid; grid-template-columns: 240px 1fr; gap: 4rem; margin-top: 3rem; }
+.exp-sidebar { position: sticky; top: 7rem; }
+.exp-sidebar-entries { display: flex; flex-direction: column; gap: 1.4rem; }
+.exp-sidebar-item { padding-left: .9rem; border-left: 2px solid var(--border); transition: border-color .2s; }
+.exp-sidebar-item:hover { border-left-color: var(--gold); }
+.exp-sidebar-period { font-size: .6rem; letter-spacing: .12em; color: var(--gold); margin-bottom: .2rem; }
+.exp-sidebar-role { font-size: .73rem; color: var(--charcoal); line-height: 1.4; }
+
+.exp-timeline { display: flex; flex-direction: column; padding-left: 1.4rem; border-left: 1px solid var(--border); }
+.exp-item { padding: 2.2rem 0 2.2rem 1.5rem; border-bottom: 1px solid var(--border); position: relative; }
+.exp-item:last-child { border-bottom: none; }
+.exp-item::before {
+  content: ''; position: absolute; left: -5px; top: 2.8rem;
+  width: 8px; height: 8px; border-radius: 50%; background: var(--gold);
+}
+.exp-meta { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; margin-bottom: .35rem; }
+.exp-role { font-size: .92rem; font-weight: 500; color: var(--charcoal); font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; }
+.exp-period {
+  font-size: .62rem; letter-spacing: .1em; color: var(--gold);
+  border: 1px solid var(--border); padding: .2rem .65rem;
+}
+.exp-company { font-size: .73rem; color: var(--gold); margin-bottom: 1rem; letter-spacing: .04em; }
+
+/* Strategic narrative — prose, no bullets */
+.exp-narrative { display: flex; flex-direction: column; gap: .9rem; }
+.exp-narrative p { font-size: .85rem; color: var(--muted); line-height: 1.85; }
+.exp-narrative p strong { color: var(--charcoal); font-weight: 500; }
+
+.exp-highlight {
+  background: var(--gold-bg); border-left: 3px solid var(--gold);
+  padding: 1.1rem 1.3rem; margin-top: 1.2rem;
+}
+.exp-highlight-title {
+  font-size: .58rem; font-weight: 500; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: .7rem;
+}
+.exp-deals { display: flex; flex-direction: column; gap: .55rem; }
+.exp-deal { font-size: .81rem; color: var(--charcoal); line-height: 1.7; padding-left: .9rem; position: relative; }
+.exp-deal::before { content: '◆'; position: absolute; left: 0; font-size: .38rem; top: .38rem; color: var(--gold); }
+
+/* ── EDUCATION ── */
+.edu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); margin-top: 2.5rem; }
+.edu-card { background: var(--white); padding: 2rem 1.6rem; position: relative; overflow: hidden; transition: background .25s; }
+.edu-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transition: transform .35s; transform-origin: left; }
+.edu-card:hover { background: var(--gold-bg); }
+.edu-card:hover::after { transform: scaleX(1); }
+.edu-year { font-size: .62rem; letter-spacing: .18em; color: var(--gold); margin-bottom: .7rem; font-weight: 500; }
+.edu-degree { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 400; color: var(--charcoal); margin-bottom: .35rem; line-height: 1.3; }
+.edu-school { font-size: .7rem; color: var(--gold); margin-bottom: .6rem; }
+.edu-diss { font-size: .7rem; color: var(--muted); line-height: 1.65; font-style: italic; }
+
+/* LBS Card */
+.lbs-card { border-top: 2px solid var(--gold); }
+.lbs-logo-wrap { margin-bottom: .9rem; }
+
+/* ── CERTIFICATIONS ── */
+.cert-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); margin-top: 2.5rem; }
+.cert-card { background: var(--cream); padding: 1.5rem; transition: background .2s; }
+.cert-card:hover { background: var(--gold-bg); }
+.cert-year { font-size: .6rem; letter-spacing: .15em; color: var(--gold); margin-bottom: .4rem; }
+.cert-name { font-size: .8rem; font-weight: 500; color: var(--charcoal); margin-bottom: .3rem; line-height: 1.4; }
+.cert-org { font-size: .7rem; color: var(--muted); }
+
+/* ── CONSULTANCY SERVICES ── */
+.services-intro {
+  font-size: .93rem; font-weight: 300; color: var(--muted);
+  line-height: 1.9; max-width: 640px; margin-bottom: 3rem;
+}
+.services-intro strong { color: var(--charcoal); font-weight: 500; }
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+.service-card { background: var(--white); padding: 2.2rem 2rem; position: relative; overflow: hidden; transition: background .25s; }
+.service-card::before {
+  content: ''; position: absolute; top: 0; left: 0; bottom: 0;
+  width: 2px; background: var(--gold); transform: scaleY(0);
+  transition: transform .35s; transform-origin: top;
+}
+.service-card:hover { background: var(--gold-bg); }
+.service-card:hover::before { transform: scaleY(1); }
+.service-num { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--gold); opacity: .25; line-height: 1; margin-bottom: .8rem; transition: opacity .25s; }
+.service-card:hover .service-num { opacity: .5; }
+.service-title { font-size: .88rem; font-weight: 500; color: var(--charcoal); margin-bottom: .65rem; }
+.service-desc { font-size: .8rem; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+.service-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+.service-tag {
+  font-size: .57rem; font-weight: 500; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--gold);
+  border: 1px solid var(--border); padding: .18rem .55rem;
+}
+
+/* ── EXPERTISE ── */
+.exp2-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); margin-top: 2.5rem; }
+.exp2-card { background: var(--cream); padding: 2.2rem 2rem; position: relative; overflow: hidden; transition: background .25s; }
+.exp2-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transition: transform .35s; transform-origin: left; }
+.exp2-card:hover { background: var(--gold-bg); }
+.exp2-card:hover::after { transform: scaleX(1); }
+.exp2-num { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--gold); opacity: .2; line-height: 1; margin-bottom: .8rem; transition: opacity .25s; }
+.exp2-card:hover .exp2-num { opacity: .45; }
+.exp2-title { font-size: .88rem; font-weight: 500; color: var(--charcoal); margin-bottom: .6rem; }
+.exp2-desc { font-size: .8rem; color: var(--muted); line-height: 1.75; }
+
+/* ── CONTACT ── */
+.contact-inner { max-width: 900px; margin: 0 auto; padding: 7rem 8vw; }
+.contact-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 300;
+  color: var(--charcoal); line-height: 1.15; margin-bottom: 1rem;
+}
+.contact-heading span { color: var(--gold); font-style: italic; }
+.contact-sub { font-size: .9rem; font-weight: 300; color: var(--muted); line-height: 1.9; max-width: 500px; margin-bottom: 3rem; }
+.contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; margin-bottom: 2.5rem; }
+.contact-block-label {
+  font-size: .58rem; font-weight: 500; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: .7rem;
+}
+.contact-block-value { font-size: .87rem; color: var(--charcoal); line-height: 1.8; }
+.contact-block-value a { color: var(--charcoal); text-decoration: none; transition: color .2s; }
+.contact-block-value a:hover { color: var(--gold); }
+.contact-block-value .email-2 { display: block; font-size: .8rem; color: var(--muted); }
+.contact-block-value .email-2:hover { color: var(--gold); }
+.contact-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+/* ── FOOTER ── */
+footer {
+  padding: 1.6rem 8vw;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: .5rem;
+  border-top: 1px solid var(--border);
+  font-size: .68rem; color: var(--muted); letter-spacing: .04em;
+}
+
+/* ── FADE ANIMATION ── */
+.fade { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+.fade.in { opacity: 1; transform: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1100px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-chart { min-height: 320px; }
+  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .about-sticky { position: static; }
+  .exp-grid { grid-template-columns: 1fr; }
+  .exp-sidebar { position: static; }
+  .edu-grid { grid-template-columns: 1fr 1fr; }
+  .cert-grid { grid-template-columns: 1fr 1fr; }
+  .services-grid { grid-template-columns: 1fr 1fr; }
+  .exp2-grid { grid-template-columns: 1fr 1fr; }
+  .pillars { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+}
+@media (max-width: 640px) {
+  .edu-grid, .cert-grid, .services-grid, .exp2-grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { .fade { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<!-- ══════ NAV ══════ -->
+<nav>
+  <div class="nav-brand">Omar <span>Albedwehy</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ══════ HERO ══════ -->
+<div class="hero">
+
+  <!-- Left: Text -->
+  <div class="hero-text">
+    <div class="hero-eyebrow">Finance &amp; Strategy Professional</div>
+    <h1 class="hero-name">Omar<br><strong>Albedwehy</strong></h1>
+    <div class="hero-credentials">
+      <span class="badge">PhD Economics</span>
+      <span class="lbs-badge">
+        <svg width="18" height="18" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="LBS">
+          <rect width="40" height="40" rx="3" fill="#8B6914"/>
+          <text x="8" y="29" font-family="Georgia,serif" font-size="24" font-weight="700" fill="white">L</text>
+        </svg>
+        London Business School
+      </span>
+      <span class="badge">20+ Years</span>
+    </div>
+    <p class="hero-tagline">
+      Transforming complex financial data into <em>meaningful insights</em>,
+      strategic decisions, and <em>sustainable value</em> — combining
+      analytical rigour with disciplined execution.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">Get in Touch →</a>
+      <a href="#services" class="btn-outline">View Services</a>
+    </div>
+  </div>
+
+  <!-- Right: Finance Charts -->
+  <div class="hero-chart">
+
+    <!-- Stat strip -->
+    <div class="chart-block fade">
+      <div class="chart-title">Career at a Glance</div>
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat-num">$425M+</div>
+          <div class="stat-label">Transactions Structured</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">20+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">8+</div>
+          <div class="stat-label">Countries Advised</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gantt-style experience timeline -->
+    <div class="chart-block fade">
+      <div class="chart-title">Experience Timeline</div>
+      <svg viewBox="0 0 400 148" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+        <defs>
+          <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#8B6914"/>
+            <stop offset="100%" stop-color="#B8960C"/>
+          </linearGradient>
+          <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#8B6914" stop-opacity=".65"/>
+            <stop offset="100%" stop-color="#B8960C" stop-opacity=".65"/>
+          </linearGradient>
+          <linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#8B6914" stop-opacity=".38"/>
+            <stop offset="100%" stop-color="#B8960C" stop-opacity=".38"/>
+          </linearGradient>
+        </defs>
+        <!-- labels -->
+        <text x="0" y="22" font-family="Inter,sans-serif" font-size="8" fill="#6B6B6B">Corporate Finance</text>
+        <rect x="130" y="10" width="270" height="16" rx="2" fill="url(#g1)"/>
+        <text x="2" y="56" font-family="Inter,sans-serif" font-size="8" fill="#6B6B6B">Senior Economist</text>
+        <rect x="130" y="44" width="204" height="16" rx="2" fill="url(#g2)"/>
+        <text x="2" y="90" font-family="Inter,sans-serif" font-size="8" fill="#6B6B6B">Parliament Analyst</text>
+        <rect x="130" y="78" width="140" height="16" rx="2" fill="url(#g3)"/>
+        <text x="2" y="124" font-family="Inter,sans-serif" font-size="8" fill="#6B6B6B">Intl. Advisory</text>
+        <rect x="130" y="112" width="108" height="16" rx="2" fill="url(#g3)"/>
+        <!-- year axis -->
+        <line x1="130" y1="136" x2="400" y2="136" stroke="#C9B87A" stroke-width=".5"/>
+        <text x="126" y="148" font-family="Inter,sans-serif" font-size="7" fill="#8B6914" text-anchor="middle">2004</text>
+        <text x="264" y="148" font-family="Inter,sans-serif" font-size="7" fill="#8B6914" text-anchor="middle">2014</text>
+        <text x="400" y="148" font-family="Inter,sans-serif" font-size="7" fill="#8B6914" text-anchor="middle">2025</text>
+      </svg>
+    </div>
+
+    <!-- Donut: Sector mix -->
+    <div class="chart-block fade">
+      <div class="chart-title">Sector Expertise</div>
+      <svg viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+        <!-- donut -->
+        <circle cx="58" cy="50" r="34" fill="none" stroke="#F5EED8" stroke-width="18"/>
+        <circle cx="58" cy="50" r="34" fill="none" stroke="#8B6914" stroke-width="18"
+          stroke-dasharray="64 150" stroke-dashoffset="0" transform="rotate(-90 58 50)"/>
+        <circle cx="58" cy="50" r="34" fill="none" stroke="#B8960C" stroke-width="18"
+          stroke-dasharray="42 150" stroke-dashoffset="-64" transform="rotate(-90 58 50)"/>
+        <circle cx="58" cy="50" r="34" fill="none" stroke="#C9B87A" stroke-width="18"
+          stroke-dasharray="32 150" stroke-dashoffset="-106" transform="rotate(-90 58 50)"/>
+        <circle cx="58" cy="50" r="34" fill="none" stroke="#DDD0A0" stroke-width="18"
+          stroke-dasharray="12 150" stroke-dashoffset="-138" transform="rotate(-90 58 50)"/>
+        <text x="58" y="55" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="11" fill="#2C2C2C">20yr</text>
+        <!-- legend -->
+        <rect x="110" y="12" width="8" height="8" fill="#8B6914"/>
+        <text x="124" y="20" font-family="Inter,sans-serif" font-size="8.5" fill="#2C2C2C">Corporate Finance</text>
+        <text x="300" y="20" font-family="Inter,sans-serif" font-size="8" fill="#6B6B6B">43%</text>
+        <rect x="110" y="30" width="8" height="8" fill="#B8960C"/>
+        <text x="124" y="38" font-family="Inter,sans-serif" font-size="8.5" fill="#2C2C2C">Strategic Planning</text>
+        <text x="300" y="38" font-family="Inter,sans-serif" font-size="8" fill="#6B6B6B">28%</text>
+        <rect x="110" y="48" width="8" height="8" fill="#C9B87A"/>
+        <text x="124" y="56" font-family="Inter,sans-serif" font-size="8.5" fill="#2C2C2C">Public Finance</text>
+        <text x="300" y="56" font-family="Inter,sans-serif" font-size="8" fill="#6B6B6B">21%</text>
+        <rect x="110" y="66" width="8" height="8" fill="#DDD0A0"/>
+        <text x="124" y="74" font-family="Inter,sans-serif" font-size="8.5" fill="#2C2C2C">Intl. Advisory</text>
+        <text x="300" y="74" font-family="Inter,sans-serif" font-size="8" fill="#6B6B6B">8%</text>
+      </svg>
+    </div>
+
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- ══════ ABOUT ══════ -->
+<section class="sec" id="about">
+  <div class="about-grid">
+    <div class="about-sticky fade">
+      <div class="sec-label">About</div>
+      <h2 class="sec-heading">Where <em>finance</em><br>meets strategy</h2>
+      <div class="gold-rule" style="margin:1.5rem 0 0;"></div>
+    </div>
+    <div class="fade">
+      <div class="about-body">
+        <p>I am a finance and strategy professional with over <strong>20 years of experience</strong> spanning corporate finance, public economics, and strategic advisory. Currently pursuing an <strong>Executive MBA at London Business School</strong>, I hold a PhD in Economics from Cairo University.</p>
+        <p>At <strong>Ezz Steel</strong> — the leading steel producer in the MENA region — I have led transformative transactions including a <strong>$300M offshore syndicated financing</strong>, a <strong>$125M minority stake acquisition</strong>, and complex share-swap structures that reshaped the Group's ownership architecture across the region.</p>
+        <p>Beyond the corporate world, I have advised <strong>the Egyptian Parliament, the UN, the IMF</strong>, and governments across the Middle East on fiscal policy, public finance, and budget reform — bringing a uniquely broad perspective to every engagement.</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar"><div class="pillar-name">Corporate Finance</div><div class="pillar-desc">M&A, share swaps, syndicated facilities, and valuation at scale.</div></div>
+        <div class="pillar"><div class="pillar-name">Strategic Planning</div><div class="pillar-desc">FP&A, long-term roadmaps, and investment decision frameworks.</div></div>
+        <div class="pillar"><div class="pillar-name">Public Economics</div><div class="pillar-desc">Fiscal policy, GFS standards, and budget reform for governments.</div></div>
+        <div class="pillar"><div class="pillar-name">Executive Advisory</div><div class="pillar-desc">Board-ready analysis and strategic recommendations for leadership.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- ══════ EXPERIENCE ══════ -->
+<div class="sec-bg-white" id="experience">
+  <div class="sec-inner">
+    <div class="fade">
+      <div class="sec-label">Experience</div>
+      <h2 class="sec-heading">20+ Years of <em>Impact</em></h2>
+    </div>
+    <div class="exp-grid">
+
+      <!-- Sidebar -->
+      <div class="exp-sidebar fade">
+        <div class="sec-label" style="margin-bottom:1.2rem;">Timeline</div>
+        <div class="exp-sidebar-entries">
+          <div class="exp-sidebar-item">
+            <div class="exp-sidebar-period">2019 – Present</div>
+            <div class="exp-sidebar-role">Group Corporate Finance Executive Manager · Ezz Steel</div>
+          </div>
+          <div class="exp-sidebar-item">
+            <div class="exp-sidebar-period">2004 – 2018</div>
+            <div class="exp-sidebar-role">Senior Economist · Ezz Steel</div>
+          </div>
+          <div class="exp-sidebar-item">
+            <div class="exp-sidebar-period">2004 – 2011</div>
+            <div class="exp-sidebar-role">Financial & Economic Analyst · Egyptian Parliament</div>
+          </div>
+          <div class="exp-sidebar-item">
+            <div class="exp-sidebar-period">2006 – 2014</div>
+            <div class="exp-sidebar-role">International Advisory · UN · IMF · Governments</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div class="exp-timeline">
+
+        <div class="exp-item fade">
+          <div class="exp-meta">
+            <span class="exp-role">Group Corporate Finance Executive Manager</span>
+            <span class="exp-period">2019 – Present</span>
+          </div>
+          <div class="exp-company">Ezz Steel · MENA's Leading Steel Producer</div>
+          <div class="exp-narrative">
+            <p>As Group Corporate Finance Executive Manager, I hold a <strong>pivotal role in Ezz Steel's second phase of regional expansion</strong> — leading the Group's most complex strategic transactions, including M&A mandates, share-swap structures, corporate valuations, and the full spectrum of capital markets activity across the MENA region.</p>
+            <p>My mandate encompasses <strong>Financial Planning & Analysis</strong>, investment evaluation, and financial modelling — translating multi-layered data into projections and recommendations presented directly to executive leadership. I collaborate closely with Group management on long-term strategic planning, championing initiatives that drive financial growth and operational scalability.</p>
+            <p>A defining dimension of the role has been the <strong>restructuring of the Group's ownership architecture</strong> — shifting from an indirect to a direct Ultimate Beneficiary Owner structure — alongside the origination and execution of offshore syndicated financing facilities that have materially transformed the Group's capital structure and regional footprint.</p>
+          </div>
+          <div class="exp-highlight">
+            <div class="exp-highlight-title">Landmark Transactions</div>
+            <div class="exp-deals">
+              <div class="exp-deal">Led acquisition of <strong>Al Ezz Flat Steel</strong> and <strong>Al Ezz Rolling Mills</strong> via a non-cash share-swap, converting outstanding debt into equity.</div>
+              <div class="exp-deal">Structured a <strong>$125M offshore syndicated facility</strong> enabling full acquisition of Al Ezz Dekeila Steel (EZDK) through purchase of a 31% minority government-held stake.</div>
+              <div class="exp-deal">Structured and secured a <strong>$300M offshore syndicated financing</strong> to acquire all remaining Ezz Steel minority shares listed on the EGX and as GDRs on the LSE.</div>
+              <div class="exp-deal">Oversaw acquisition of an <strong>18% stake</strong> in a local steel producer with share valuation in compliance with Financial Regulatory Authority (FRA) regulations.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-item fade">
+          <div class="exp-meta">
+            <span class="exp-role">Senior Economist</span>
+            <span class="exp-period">2004 – 2018</span>
+          </div>
+          <div class="exp-company">Ezz Steel</div>
+          <div class="exp-narrative">
+            <p>Over a fourteen-year tenure, I established Ezz Steel's in-house capacity for <strong>macroeconomic intelligence and strategic economic research</strong> — producing the analytical foundation upon which key commercial and regulatory decisions were made. This encompassed sector-specific economic analysis, trend forecasting, and interpretation of market developments that informed leadership at the highest levels.</p>
+            <p>I served as the internal authority on <strong>corporate law, regulatory compliance, and legislative frameworks</strong>, maintaining the organisation's understanding of evolving rules affecting the business environment. In parallel, I led cross-functional work spanning <strong>Corporate Governance, CSR, and Business Process Management</strong> — including deployment of SIPOC methodology for process optimisation across operating units.</p>
+          </div>
+        </div>
+
+        <div class="exp-item fade">
+          <div class="exp-meta">
+            <span class="exp-role">Financial & Economic Analyst</span>
+            <span class="exp-period">2004 – 2011</span>
+          </div>
+          <div class="exp-company">Egyptian Parliament · Plan and Budget Committee</div>
+          <div class="exp-narrative">
+            <p>As Financial and Economic Analyst to the <strong>Plan and Budget Committee of the Egyptian People's Assembly</strong>, I was responsible for producing the analytical outputs that informed parliamentary oversight of Egypt's fiscal architecture — encompassing technical reports on Public Economic Authorities, State-Owned Enterprises, and macroeconomic policy prepared for senior legislators.</p>
+            <p>A landmark contribution was the development of the analytical framework underpinning <strong>Egypt's transition from line-item budgeting to Performance-Based Budgeting (PBB)</strong>, as well as alignment of Egypt's state budget classification system with <strong>IMF international standards</strong>. My research covered government finance statistics, public expenditure, pension systems, and public-private partnerships.</p>
+          </div>
+        </div>
+
+        <div class="exp-item fade">
+          <div class="exp-meta">
+            <span class="exp-role">International Advisory & Consultancy</span>
+            <span class="exp-period">2006 – 2014</span>
+          </div>
+          <div class="exp-company">UN Women · IMF · Inter-Parliamentary Union · Multiple Governments</div>
+          <div class="exp-narrative">
+            <p>Across an eight-year international advisory career, I delivered technical expertise to governments, international organisations, and parliamentary bodies across the Middle East and Africa — spanning fiscal reform, budget modernisation, and socioeconomic policy analysis.</p>
+            <p>Key engagements included the <strong>alignment of the Omani State Budget with the IMF's GFS 2001 framework</strong>, technical support to the <strong>UN Women initiative to modernise Iraq's State Budget</strong>, and an Affordability Assessment for Egypt's water and sanitation sector. I also contributed to foundational work in <strong>Gender-Responsive Budgeting</strong> — including Egypt's first report on budgeting for children's rights — and delivered parliamentary budget training in collaboration with the <strong>Inter-Parliamentary Union</strong>.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- ══════ CONSULTANCY SERVICES ══════ -->
+<section class="sec" id="services">
+  <div class="fade">
+    <div class="sec-label">Consultancy Services</div>
+    <h2 class="sec-heading">How I Can <em>Help</em></h2>
+  </div>
+  <p class="services-intro fade">
+    Drawing on <strong>over 20 years</strong> at the intersection of corporate finance, public economics, and strategic advisory, I offer a focused set of consultancy services to corporations, institutions, governments, and entrepreneurs navigating complexity, transactions, or transformation.
+  </p>
+  <div class="services-grid">
+    <div class="service-card fade">
+      <div class="service-num">01</div>
+      <div class="service-title">Corporate Finance & M&A Advisory</div>
+      <div class="service-desc">End-to-end support for mergers, acquisitions, divestitures, and share-swap structures — from initial valuation to transaction close, including syndicated financing origination and capital structure advisory.</div>
+      <div class="service-tags"><span class="service-tag">M&A</span><span class="service-tag">Valuation</span><span class="service-tag">Syndicated Finance</span><span class="service-tag">Capital Structure</span></div>
+    </div>
+    <div class="service-card fade">
+      <div class="service-num">02</div>
+      <div class="service-title">Financial Modelling & FP&A</div>
+      <div class="service-desc">Development of robust, decision-grade financial models, forecasts, and scenario analyses. Translating complex data into clear projections that support executive and board-level decisions.</div>
+      <div class="service-tags"><span class="service-tag">Financial Models</span><span class="service-tag">FP&A</span><span class="service-tag">Scenario Analysis</span><span class="service-tag">Forecasting</span></div>
+    </div>
+    <div class="service-card fade">
+      <div class="service-num">03</div>
+      <div class="service-title">Strategic Planning & Business Cases</div>
+      <div class="service-desc">Designing long-term strategic frameworks, pressure-testing assumptions, and building investment-grade business cases that align organisational capabilities with value creation goals.</div>
+      <div class="service-tags"><span class="service-tag">Strategy</span><span class="service-tag">Business Cases</span><span class="service-tag">Investment Decisions</span></div>
+    </div>
+    <div class="service-card fade">
+      <div class="service-num">04</div>
+      <div class="service-title">Public Finance & Fiscal Advisory</div>
+      <div class="service-desc">Technical advisory to governments and public institutions on budget reform, GFS alignment, fiscal sustainability, performance-based budgeting, and compliance with IMF international standards.</div>
+      <div class="service-tags"><span class="service-tag">Public Finance</span><span class="service-tag">Budget Reform</span><span class="service-tag">IMF GFS</span><span class="service-tag">Fiscal Policy</span></div>
+    </div>
+    <div class="service-card fade">
+      <div class="service-num">05</div>
+      <div class="service-title">Corporate Governance & Restructuring</div>
+      <div class="service-desc">Advising on ownership restructuring, UBO compliance, governance framework design, and regulatory alignment — helping organisations build structures that are transparent, resilient, and scalable.</div>
+      <div class="service-tags"><span class="service-tag">Governance</span><span class="service-tag">Restructuring</span><span class="service-tag">Compliance</span><span class="service-tag">UBO</span></div>
+    </div>
+    <div class="service-card fade">
+      <div class="service-num">06</div>
+      <div class="service-title">KPI Design & Performance Management</div>
+      <div class="service-desc">Building performance management systems that connect strategy to execution — including KPI frameworks, governance models, and reporting structures that drive accountability and measurable outcomes.</div>
+      <div class="service-tags"><span class="service-tag">KPIs</span><span class="service-tag">Performance</span><span class="service-tag">Governance</span><span class="service-tag">Reporting</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- ══════ EDUCATION ══════ -->
+<div class="sec-bg-cream2" id="education">
+  <div class="sec-inner">
+    <div class="fade">
+      <div class="sec-label">Education</div>
+      <h2 class="sec-heading">Academic <em>Foundation</em></h2>
+    </div>
+    <div class="edu-grid">
+
+      <!-- LBS -->
+      <div class="edu-card lbs-card fade">
+        <div class="edu-year">Present</div>
+        <div class="lbs-logo-wrap">
+          <svg width="110" height="36" viewBox="0 0 220 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="London Business School">
+            <rect width="68" height="68" x="0" y="2" rx="4" fill="#8B6914"/>
+            <text x="13" y="52" font-family="Georgia,serif" font-size="44" font-weight="700" fill="white">L</text>
+            <text x="78" y="24" font-family="Arial,sans-serif" font-size="14" font-weight="600" fill="#2C2C2C" letter-spacing="1.5">LONDON</text>
+            <text x="78" y="42" font-family="Arial,sans-serif" font-size="11" font-weight="400" fill="#6B6B6B" letter-spacing=".8">BUSINESS</text>
+            <text x="78" y="58" font-family="Arial,sans-serif" font-size="11" font-weight="400" fill="#6B6B6B" letter-spacing=".8">SCHOOL</text>
+          </svg>
+        </div>
+        <div class="edu-degree">Executive MBA</div>
+        <div class="edu-school">United Kingdom</div>
+      </div>
+
+      <div class="edu-card fade">
+        <div class="edu-year">2014</div>
+        <div class="edu-degree">PhD in Economics</div>
+        <div class="edu-school">Faculty of Economics & Political Science · Cairo University</div>
+        <div class="edu-diss">"Fiscal Stimulus Packages and Economic Crisis: A Case Study of Egypt"</div>
+      </div>
+      <div class="edu-card fade">
+        <div class="edu-year">2008</div>
+        <div class="edu-degree">MSc in Economics</div>
+        <div class="edu-school">Faculty of Economics & Political Science · Cairo University</div>
+        <div class="edu-diss">"Fiscal Risks and Fiscal Sustainability: A Case Study of Egypt"</div>
+      </div>
+      <div class="edu-card fade">
+        <div class="edu-year">2003</div>
+        <div class="edu-degree">BSc in Economics</div>
+        <div class="edu-school">Faculty of Economics & Political Science · Cairo University</div>
+        <div class="edu-diss">Major: Economics · Minor: Computer Sciences</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- ══════ CERTIFICATIONS ══════ -->
+<div class="sec-bg-white">
+  <div class="sec-inner">
+    <div class="fade">
+      <div class="sec-label">Certifications & Training</div>
+      <h2 class="sec-heading">Professional <em>Development</em></h2>
+    </div>
+    <div class="cert-grid">
+      <div class="cert-card fade"><div class="cert-year">2019</div><div class="cert-name">Certified Credit Analyst</div><div class="cert-org">Commercial International Bank (CIB) · Egypt</div></div>
+      <div class="cert-card fade"><div class="cert-year">2018</div><div class="cert-name">Certified KPI Professional</div><div class="cert-org">KPI Institute</div></div>
+      <div class="cert-card fade"><div class="cert-year">2018</div><div class="cert-name">Coaching in the Workplace</div><div class="cert-org">Trainera</div></div>
+      <div class="cert-card fade"><div class="cert-year">2017</div><div class="cert-name">Project Management</div><div class="cert-org">Information & Software Engineering Regional Center</div></div>
+      <div class="cert-card fade"><div class="cert-year">2015</div><div class="cert-name">Advanced Management Skills M4</div><div class="cert-org">Management & Technology Experts Group · Egypt</div></div>
+      <div class="cert-card fade"><div class="cert-year">2014</div><div class="cert-name">Master Your Communication Skills</div><div class="cert-org">Global Academy Training & Development · Egypt</div></div>
+      <div class="cert-card fade"><div class="cert-year">2005</div><div class="cert-name">Advanced Credit & Financial Analysis</div><div class="cert-org">Egyptian Banking Institute · Egypt</div></div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- ══════ EXPERTISE ══════ -->
+<section class="sec" id="expertise">
+  <div class="fade">
+    <div class="sec-label">Expertise</div>
+    <h2 class="sec-heading">Core <em>Capabilities</em></h2>
+  </div>
+  <div class="exp2-grid">
+    <div class="exp2-card fade"><div class="exp2-num">01</div><div class="exp2-title">M&A & Strategic Transactions</div><div class="exp2-desc">Leading complex acquisitions, share swaps, and restructuring initiatives across the MENA region at scale.</div></div>
+    <div class="exp2-card fade"><div class="exp2-num">02</div><div class="exp2-title">Financial Modelling & FP&A</div><div class="exp2-desc">Building robust financial models, forecasts, and projections that translate complexity into decision-ready insights.</div></div>
+    <div class="exp2-card fade"><div class="exp2-num">03</div><div class="exp2-title">Syndicated Financing</div><div class="exp2-desc">Structuring and securing offshore syndicated facilities up to $300M for strategic acquisitions.</div></div>
+    <div class="exp2-card fade"><div class="exp2-num">04</div><div class="exp2-title">Public Finance & Fiscal Policy</div><div class="exp2-desc">Advising governments and international organisations on budget reform, GFS standards, and fiscal sustainability.</div></div>
+    <div class="exp2-card fade"><div class="exp2-num">05</div><div class="exp2-title">Strategic Planning</div><div class="exp2-desc">Designing long-term strategic frameworks aligned with organisational capabilities and value creation goals.</div></div>
+    <div class="exp2-card fade"><div class="exp2-num">06</div><div class="exp2-title">Corporate Governance</div><div class="exp2-desc">Restructuring ownership models, ensuring regulatory compliance, and implementing governance frameworks.</div></div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- ══════ CONTACT ══════ -->
+<div class="sec-bg-cream2" id="contact">
+  <div class="contact-inner">
+    <div class="fade">
+      <div class="sec-label">Contact</div>
+      <h2 class="contact-heading">Let's work<br><span>together.</span></h2>
+      <p class="contact-sub">Whether you are navigating a strategic transaction, require financial advisory, or are looking for a thinking partner — I would like to hear from you.</p>
+      <div class="contact-grid">
+        <div>
+          <div class="contact-block-label">Location</div>
+          <div class="contact-block-value">Cairo, Egypt</div>
+        </div>
+        <div>
+          <div class="contact-block-label">Phone</div>
+          <div class="contact-block-value">
+            <a href="tel:+201001298639">+2 0100 12 98 639</a>
+          </div>
+        </div>
+        <div>
+          <div class="contact-block-label">Email</div>
+          <div class="contact-block-value">
+            <a href="mailto:omara.embalj2027@london.edu">omara.embalj2027@london.edu</a>
+            <a href="mailto:omar.albedwehy@feps.edu.eg" class="email-2">omar.albedwehy@feps.edu.eg</a>
+          </div>
+        </div>
+        <div>
+          <div class="contact-block-label">Connect</div>
+          <div class="contact-block-value">
+            <a href="https://linkedin.com/in/omar-albedwehy" target="_blank">LinkedIn ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-cta">
+        <a href="mailto:omara.embalj2027@london.edu" class="btn-primary">Send a Message →</a>
+        <a href="cv.pdf" class="btn-outline" download>Download CV ↓</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Omar Albedwehy · PhD · Cairo, Egypt</span>
+  <span>Finance & Strategy · Corporate & Public Sector</span>
+</footer>
+
+<script>
+  const fades = document.querySelectorAll('.fade');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const siblings = [...e.target.parentElement.children].filter(c => c.classList.contains('fade'));
+        const idx = siblings.indexOf(e.target);
+        setTimeout(() => e.target.classList.add('in'), idx * 75);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
+  fades.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
